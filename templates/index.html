@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello Flask</title>
+    </head>
+    <body>
+        <h1>show random number</h1>
+		<span id="data">值</span>
+    </body>
+	
+	<script type="text/javascript">
+		function repeatedly_get(){
+			fetch_from_server();
+			setTimeout(repeatedly_get, 500);
+		}
+
+		repeatedly_get();
+		
+		function fetch_from_server(){
+			var req = new XMLHttpRequest();
+			req.open('GET', '/api/test');
+			req.onreadystatechange = function () {
+				if (req.readyState === 4) {
+					console.log(req.responseText);
+					process_data(req.responseText);
+				}
+			};
+			req.send();
+		}
+		
+		function process_data(v){
+			document.getElementById('data').innerHTML = v;
+		}
+	</script>	
+</html>
